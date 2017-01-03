@@ -13,7 +13,7 @@ var app = function (Kotlin) {
             }, /** @lends _.com.naosim.kotlinjsgame.ap.ShowPositionService.prototype */ {
               invoke: function () {
                 var p = new _.com.naosim.kotlinjsgame.domain.Position(40.5, 30.1);
-                this.alertJsRepository.show_61zpoe$(p.x.toString() + ', ' + p.y);
+                this.alertJsRepository.show(p.x.toString() + ', ' + p.y);
               }
             })
           }),
@@ -59,3 +59,5 @@ var app = function (Kotlin) {
   _.com.naosim.kotlinjsgame.main([]);
   return _;
 }(kotlin);
+
+//@ sourceMappingURL=app.js.map
