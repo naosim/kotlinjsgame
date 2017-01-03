@@ -1,6 +1,6 @@
 package com.naosim.kotlinjsgame.jsrepository
 
 interface AlertJsRepository {
-    @JsName("show")
+    @native
     fun show(text: String)
 }
