@@ -31,10 +31,10 @@ dependencies {
 
 compileKotlin2Js {
     kotlinOptions {
-        metaInfo = true
-        sourceMap = true
+//        metaInfo = true
+//        sourceMap = true
         outputFile = "${projectDir}/docs/web/js/kotlinjsgame/app.js"
-        suppressWarnings = true
-        verbose = true
+//        suppressWarnings = true
+//        verbose = true
     }
 }

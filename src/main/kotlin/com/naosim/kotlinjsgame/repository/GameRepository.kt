@@ -1,16 +1,9 @@
 package com.naosim.kotlinjsgame.repository
 
 import com.naosim.kotlinjsgame.domain.Assets
-import com.naosim.kotlinjsgame.domain.lib.SpriteModel
-import com.naosim.kotlinjsgame.domain.lib.UpdateEvent
+import com.naosim.kotlinjsgame.domain.lib.*
 
 interface GameRepository {
-    @native
     fun load(assets: Assets)
-
-    @native
-    fun init(spriteModel: SpriteModel)
-
-    @native
-    fun update(updateEvent: UpdateEvent<*>)
+    fun <T:SpriteConfig, R> createSpriteEntity(spriteConfig: T, factory: (id:ID, sprite:Sprite, config:T)->R): R
 }

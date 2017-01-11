@@ -2,36 +2,31 @@ package com.naosim.kotlinjsgame.ap
 
 import com.naosim.kotlinjsgame.domain.Assets
 import com.naosim.kotlinjsgame.domain.lib.*
+import com.naosim.kotlinjsgame.domain.shooting.BulletEntity
+import com.naosim.kotlinjsgame.domain.shooting.ShipConfig
+import com.naosim.kotlinjsgame.domain.shooting.ShipEntity
 import com.naosim.kotlinjsgame.repository.GameRepository
 
 class MainService(val gameRepository: GameRepository) {
-    lateinit var ship: SpriteModel
+    lateinit var shipEntity: ShipEntity
+    var bulletEntities = emptyArray<BulletEntity>()
 
-
-    @native
     fun preload() {
+        // アセットの読み込み
         Assets.values().forEach { gameRepository.load(it) }
     }
 
-    @native
     fun create() {
-        ship = SpriteModel(Physics(Position(320, 500), Velocity(0, 0), Accel(0, 0)), Assets.ship, PhysicsEnable.enable)
-        gameRepository.init(ship)
+        shipEntity = gameRepository.createSpriteEntity(ShipConfig(), ::ShipEntity)
     }
 
-    @native
     fun update(context: Context) {
+        shipEntity.update(context, {
+            bulletEntities = bulletEntities.plus(gameRepository.createSpriteEntity(it, ::BulletEntity))
+        })
+        bulletEntities.forEach { it.update(context) }
 
-        val x = if(context.cursors.left.isDown) {
-            -200
-        } else if(context.cursors.right.isDown) {
-            200
-        } else {
-            0
-        }
-
-        val updateEvent = ship.physics.velocity.update(x)
-        gameRepository.update(updateEvent)
+        bulletEntities = bulletEntities.filter { it.sprite.alive }.toTypedArray()
     }
 
 }

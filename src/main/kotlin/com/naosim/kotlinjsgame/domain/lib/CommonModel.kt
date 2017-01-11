@@ -12,32 +12,56 @@ enum class D2UpdateEventName(override val value:String) : UpdateEventName {
 }
 class UpdateEvent<T>(val name: UpdateEventName, val arg: T)
 
-open class D2(private var x: Int, private var y: Int, val updateEventName: D2UpdateEventName) {
-    fun update(x: Int? = null, y: Int? = null): UpdateEvent<D2> {
-        this.x = x ?: this.x
-        this.y = y ?: this.y
-        return UpdateEvent<D2>(updateEventName, D2(this.x, this.y, this.updateEventName))
-    }
-    fun getX(): Int {
-        return x;
-    }
-    fun getY(): Int {
-        return y;
-    }
+interface D2 {
+    fun getX(): Int
+    fun getY(): Int
+    fun update(x: Int? = null, y: Int? = null)
 }
 
-class Position(x: Int, y: Int) : D2(x, y, D2UpdateEventName.position)
-class Velocity(x: Int, y: Int) : D2(x, y, D2UpdateEventName.verocity)
-class Accel(x: Int, y: Int)    : D2(x, y, D2UpdateEventName.accel)
+interface Position : D2
+interface Velocity : D2
+interface Accel : D2
 
 class Physics(val position: Position, val velocity: Velocity, val accel: Accel)
 enum class PhysicsEnable(val isEnable: Boolean) { enable(true), disable(false) }
-class SpriteModel(val physics: Physics, val assets: Assets, val physicsEnable: PhysicsEnable)
-enum class CursorType {
-    up, down, left, right
+
+enum class SpriteEvent {
+    onKilled
 }
-class Cursor(val type: CursorType, val isDown: Boolean)
-class Cursors(val up: Cursor, val down: Cursor, val left: Cursor, val right: Cursor)
+
+interface Sprite {
+    val physics: Physics
+    val inCamera: Boolean
+    val alive: Boolean
+    fun kill()
+    fun addEventListener(spriteEvent: SpriteEvent, action:()->Unit)
+}
+
+class ID(val value: String)
+//interface SpriteModel {
+//    val sprite: Sprite// lateinit
+//    val assets: Assets
+//    val physicsEnable: PhysicsEnable
+//
+//    fun setSprite(sprite: Sprite)
+//}
+interface SpriteConfig {
+    val assets: Assets
+    val physicsEnable: PhysicsEnable
+}
+
+interface SpriteModelEntity<T:SpriteConfig> {
+    val id: ID
+    val sprite: Sprite
+    val spriteConfig: T
+    fun kill()
+}
+
+enum class ButtonType {
+    up, down, left, right, a, b
+}
+class Button(val type: ButtonType, val isDown: Boolean, val isDownStart: Boolean = false)
+class Buttons(val up: Button, val down: Button, val left: Button, val right: Button, val a: Button)
 
 // とりあえずなんでも入れれるやつ
-class Context(val cursors: Cursors)
+class Context(val buttons: Buttons)
