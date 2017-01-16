@@ -6,6 +6,7 @@ import com.naosim.kotlinjsgame.domain.Player
 import com.naosim.kotlinjsgame.domain.UpdateRegister
 import com.naosim.kotlinjsgame.phaser.GameFactory
 import com.naosim.kotlinjsgame.phaser.ID
+import com.naosim.kotlinjsgame.phaser.PhaserStatic
 import com.naosim.kotlinjsgame.phaser.Sprite
 
 /**
@@ -13,7 +14,7 @@ import com.naosim.kotlinjsgame.phaser.Sprite
  */
 
 
-class Main(val Phaser: dynamic, gameFactory: GameFactory) {
+class Main(val phaser: PhaserStatic, gameFactory: GameFactory) {
     var game: dynamic = null
     lateinit var player: Player
 //    lateinit var sprite: Sprite
@@ -31,7 +32,7 @@ class Main(val Phaser: dynamic, gameFactory: GameFactory) {
 
         val preload = {
 
-            game.load.tilemap(ArrowGameKey.map.value, "assets/tilemaps/maps/features_test.json", null, Phaser.Tilemap.TILED_JSON);
+            game.load.tilemap(ArrowGameKey.map.value, "assets/tilemaps/maps/features_test.json", null, phaser.Tilemap.TILED_JSON);
 
             game.load.image(ArrowGameKey.ground_1x1.value, "assets/tilemaps/tiles/ground_1x1.png");
             game.load.image(ArrowGameKey.walls_1x2.value, "assets/tilemaps/tiles/walls_1x2.png");
@@ -58,7 +59,7 @@ class Main(val Phaser: dynamic, gameFactory: GameFactory) {
 
             layer.resizeWorld();
 
-            game.physics.startSystem(Phaser.Physics.ARCADE);
+            game.physics.startSystem(phaser.Physics.ARCADE);
 
             //  Here we create our coins group
             coins = game.add.group();

@@ -121,8 +121,8 @@ var app = function (Kotlin) {
             })
           }),
           js: Kotlin.definePackage(null, /** @lends _.com.naosim.kotlinjsgame.js */ {
-            Main: Kotlin.createClass(null, function Main(Phaser, gameFactory) {
-              this.Phaser = Phaser;
+            Main: Kotlin.createClass(null, function Main(phaser_0, gameFactory) {
+              this.phaser = phaser_0;
               this.game = null;
               var map = {v: null};
               var coins = {v: null};
@@ -140,7 +140,7 @@ var app = function (Kotlin) {
               },
               Main$f_0: function (this$Main) {
                 return function () {
-                  this$Main.game.load.tilemap(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.map.value, 'assets/tilemaps/maps/features_test.json', null, this$Main.Phaser.Tilemap.TILED_JSON);
+                  this$Main.game.load.tilemap(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.map.value, 'assets/tilemaps/maps/features_test.json', null, this$Main.phaser.Tilemap.TILED_JSON);
                   this$Main.game.load.image(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.ground_1x1.value, 'assets/tilemaps/tiles/ground_1x1.png');
                   this$Main.game.load.image(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.walls_1x2.value, 'assets/tilemaps/tiles/walls_1x2.png');
                   this$Main.game.load.image(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.tiles2.value, 'assets/tilemaps/tiles/tiles2.png');
@@ -159,7 +159,7 @@ var app = function (Kotlin) {
                   closure$map.v.setCollisionBetween(1, 12);
                   closure$layer.v = closure$map.v.createLayer(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.Tile_Layer_1.value);
                   closure$layer.v.resizeWorld();
-                  this$Main.game.physics.startSystem(this$Main.Phaser.Physics.ARCADE);
+                  this$Main.game.physics.startSystem(this$Main.phaser.Physics.ARCADE);
                   closure$coins.v = this$Main.game.add.group();
                   closure$coins.v.enableBody = true;
                   closure$map.v.createFromObjects('Object Layer 1', 34, 'coin', 0, true, false, closure$coins.v);
@@ -230,7 +230,10 @@ var app = function (Kotlin) {
             }),
             Acceleration: Kotlin.createTrait(function () {
               return [_.com.naosim.kotlinjsgame.phaser.Point];
-            })
+            }),
+            Tilemap: Kotlin.createTrait(null),
+            Physics: Kotlin.createTrait(null),
+            PhaserStatic: Kotlin.createTrait(null)
           })
         })
       })

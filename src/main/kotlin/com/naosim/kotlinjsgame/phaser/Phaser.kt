@@ -56,3 +56,16 @@ interface PhysicsBody: Point {
 
 interface velocity: Point
 interface Acceleration: Point
+
+
+interface Tilemap {
+    val CSV: Number
+    val TILED_JSON: Number
+}
+interface Physics {
+    val ARCADE: Number
+}
+interface PhaserStatic {
+    val Tilemap: Tilemap
+    val Physics: Physics
+}
