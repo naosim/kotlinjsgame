@@ -16,6 +16,9 @@ interface Sprite: Point {
 interface GameKey {
     val value: String
 }
+interface GameFile {
+    val value: String
+}
 
 data class ID(val value: String)
 

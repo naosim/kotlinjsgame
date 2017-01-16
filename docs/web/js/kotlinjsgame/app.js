@@ -47,6 +47,61 @@ var app = function (Kotlin) {
                 }
               }
             }),
+            ArrowGameFile: Kotlin.createEnumClass(function () {
+              return [_.com.naosim.kotlinjsgame.phaser.GameFile, Kotlin.Enum];
+            }, function ArrowGameFile(label) {
+              ArrowGameFile.baseInitializer.call(this);
+              this.label_nqon4v$_0 = label;
+            }, function () {
+              return {
+                map: function () {
+                  return new _.com.naosim.kotlinjsgame.domain.ArrowGameFile('assets/tilemaps/maps/features_test.json');
+                },
+                ground_1x1: function () {
+                  return new _.com.naosim.kotlinjsgame.domain.ArrowGameFile('assets/tilemaps/tiles/ground_1x1.png');
+                },
+                walls_1x2: function () {
+                  return new _.com.naosim.kotlinjsgame.domain.ArrowGameFile('assets/tilemaps/tiles/walls_1x2.png');
+                },
+                tiles2: function () {
+                  return new _.com.naosim.kotlinjsgame.domain.ArrowGameFile('assets/tilemaps/tiles/tiles2.png');
+                },
+                phaser: function () {
+                  return new _.com.naosim.kotlinjsgame.domain.ArrowGameFile('assets/sprites/arrow.png');
+                },
+                coin: function () {
+                  return new _.com.naosim.kotlinjsgame.domain.ArrowGameFile('assets/sprites/coin.png');
+                }
+              };
+            }, /** @lends _.com.naosim.kotlinjsgame.domain.ArrowGameFile.prototype */ {
+              value: {
+                get: function () {
+                  return this.label_nqon4v$_0 == null ? this.name : this.label_nqon4v$_0;
+                }
+              }
+            }),
+            ArrowGameImage: Kotlin.createEnumClass(function () {
+              return [Kotlin.Enum];
+            }, function ArrowGameImage(gameKey, gameFile) {
+              ArrowGameImage.baseInitializer.call(this);
+              this.gameKey = gameKey;
+              this.gameFile = gameFile;
+            }, function () {
+              return {
+                ground_1x1: function () {
+                  return new _.com.naosim.kotlinjsgame.domain.ArrowGameImage(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.ground_1x1, _.com.naosim.kotlinjsgame.domain.ArrowGameFile.ground_1x1);
+                },
+                walls_1x2: function () {
+                  return new _.com.naosim.kotlinjsgame.domain.ArrowGameImage(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.walls_1x2, _.com.naosim.kotlinjsgame.domain.ArrowGameFile.walls_1x2);
+                },
+                tiles2: function () {
+                  return new _.com.naosim.kotlinjsgame.domain.ArrowGameImage(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.tiles2, _.com.naosim.kotlinjsgame.domain.ArrowGameFile.tiles2);
+                },
+                phaser: function () {
+                  return new _.com.naosim.kotlinjsgame.domain.ArrowGameImage(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.phaser, _.com.naosim.kotlinjsgame.domain.ArrowGameFile.phaser);
+                }
+              };
+            }),
             UpdateRegister: Kotlin.createClass(function () {
               return [_.com.naosim.kotlinjsgame.phaser.PhaserLoop];
             }, function UpdateRegister(id) {
@@ -141,9 +196,12 @@ var app = function (Kotlin) {
               Main$f_0: function (this$Main) {
                 return function () {
                   this$Main.game.load.tilemap(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.map.value, 'assets/tilemaps/maps/features_test.json', null, this$Main.phaser.Tilemap.TILED_JSON);
-                  this$Main.game.load.image(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.ground_1x1.value, 'assets/tilemaps/tiles/ground_1x1.png');
-                  this$Main.game.load.image(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.walls_1x2.value, 'assets/tilemaps/tiles/walls_1x2.png');
-                  this$Main.game.load.image(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.tiles2.value, 'assets/tilemaps/tiles/tiles2.png');
+                  var $receiver = _.com.naosim.kotlinjsgame.domain.ArrowGameImage.values();
+                  var tmp$2;
+                  for (tmp$2 = 0; tmp$2 !== $receiver.length; ++tmp$2) {
+                    var element = $receiver[tmp$2];
+                    this$Main.game.load.image(element.gameKey.value, element.gameFile.value);
+                  }
                   this$Main.game.load.image(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.phaser.value, 'assets/sprites/arrow.png');
                   return this$Main.game.load.spritesheet(_.com.naosim.kotlinjsgame.domain.ArrowGameKey.coin.value, 'assets/sprites/coin.png', 32, 32);
                 };
@@ -196,6 +254,7 @@ var app = function (Kotlin) {
               return [_.com.naosim.kotlinjsgame.phaser.Point];
             }),
             GameKey: Kotlin.createTrait(null),
+            GameFile: Kotlin.createTrait(null),
             ID: Kotlin.createClass(null, function ID(value) {
               this.value = value;
             }, /** @lends _.com.naosim.kotlinjsgame.phaser.ID.prototype */ {

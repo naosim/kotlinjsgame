@@ -1,9 +1,6 @@
 package com.naosim.kotlinjsgame.js
 
-import com.naosim.kotlinjsgame.domain.ArrowGameKey
-import com.naosim.kotlinjsgame.domain.Global
-import com.naosim.kotlinjsgame.domain.Player
-import com.naosim.kotlinjsgame.domain.UpdateRegister
+import com.naosim.kotlinjsgame.domain.*
 import com.naosim.kotlinjsgame.phaser.GameFactory
 import com.naosim.kotlinjsgame.phaser.ID
 import com.naosim.kotlinjsgame.phaser.PhaserStatic
@@ -34,9 +31,11 @@ class Main(val phaser: PhaserStatic, gameFactory: GameFactory) {
 
             game.load.tilemap(ArrowGameKey.map.value, "assets/tilemaps/maps/features_test.json", null, phaser.Tilemap.TILED_JSON);
 
-            game.load.image(ArrowGameKey.ground_1x1.value, "assets/tilemaps/tiles/ground_1x1.png");
-            game.load.image(ArrowGameKey.walls_1x2.value, "assets/tilemaps/tiles/walls_1x2.png");
-            game.load.image(ArrowGameKey.tiles2.value, "assets/tilemaps/tiles/tiles2.png");
+            ArrowGameImage.values().forEach { game.load.image(it.gameKey.value, it.gameFile.value); }
+
+//            game.load.image(ArrowGameKey.ground_1x1.value, "assets/tilemaps/tiles/ground_1x1.png");
+//            game.load.image(ArrowGameKey.walls_1x2.value, "assets/tilemaps/tiles/walls_1x2.png");
+//            game.load.image(ArrowGameKey.tiles2.value, "assets/tilemaps/tiles/tiles2.png");
 
             game.load.image(ArrowGameKey.phaser.value, "assets/sprites/arrow.png");
             game.load.spritesheet(ArrowGameKey.coin.value, "assets/sprites/coin.png", 32, 32);

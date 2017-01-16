@@ -15,6 +15,26 @@ enum class ArrowGameKey(private var label: String? = null): GameKey {
         get() = if(label == null) name else label!!
 }
 
+enum class ArrowGameFile(private val label: String): GameFile {
+    map("assets/tilemaps/maps/features_test.json"),
+    ground_1x1("assets/tilemaps/tiles/ground_1x1.png"),
+    walls_1x2("assets/tilemaps/tiles/walls_1x2.png"),
+    tiles2("assets/tilemaps/tiles/tiles2.png"),
+    phaser("assets/sprites/arrow.png"),
+    coin("assets/sprites/coin.png")
+    ;
+
+    override val value: String
+        get() = if(label == null) name else label!!
+}
+
+enum class ArrowGameImage(val gameKey:GameKey, val gameFile: GameFile) {
+    ground_1x1(ArrowGameKey.ground_1x1, ArrowGameFile.ground_1x1),
+    walls_1x2(ArrowGameKey.walls_1x2, ArrowGameFile.walls_1x2),
+    tiles2(ArrowGameKey.tiles2, ArrowGameFile.tiles2),
+    phaser(ArrowGameKey.phaser, ArrowGameFile.phaser),
+}
+
 class UpdateRegister<G>(override val id: ID):PhaserLoop<G> {
     val map: MutableMap<ID, PhaserLoop<G>>
     init {
